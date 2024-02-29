@@ -1,4 +1,41 @@
-body {
-    background-color:Black;
-    color:#fff;
+    .main {
+	background-color: #a2cccf;
+	border-radius: 15px;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+	padding: 10px 20px;
+	transition: transform 0.2s;
+	width: 500px;
+	text-align: left;
+    column-gap: 1rem;
+    margin-left: 325px;
+    margin-top: 70px;
+}
+.ta{
+    
+    display:block;
+    align-items: left;
+    text-align: left;
+}
+
+#name{
+    align-items: left;
+    text-align: left;
+    border-width: 0cap;
+    width: 150px;
+    height:20px;
+}
+
+#date,#amt{
+    width: 150px;
+    height:20px;
+}
+
+
+
+
+.wrap {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+    
 }
