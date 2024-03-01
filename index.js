@@ -12,7 +12,7 @@ app.use("/",static);
 **/
 
 
-app.post("/hi",(req,res)=>{
+/*app.post("/hi",(req,res)=>{
   console.log(req.query)
   res.json({
    // name:req.query.name,
@@ -24,7 +24,26 @@ app.post("/hi",(req,res)=>{
    // phone:"123",
     //ph:req.query.ph*10,
   });
-})
+})*/
+
+// app.get("/hi",(req,res)=>{
+//   console.log(req.query)
+//   req.json(req.query);
+//   // firstName:req.query.name,
+//     // ...req.query,            //... -> spread operator
+//     // desc:req.query.desc,
+//     // const {amount}:req.query,
+//     // date:req.query.date,
+//     // amount,
+//     // ph:req.query.ph,
+// })
+
+app.get("/hi", (req, res) => {
+  console.log(req.query);
+  res.json(req.query);
+});
+
+
 app.listen(3000,() =>{
   console.log("Hello world")
 })
