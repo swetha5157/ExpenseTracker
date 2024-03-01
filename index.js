@@ -51,22 +51,37 @@ app.get("/todos",(req,res)=>{
 });*/
 
 //using async await
-/*
+
 app.get("/todos",async(req,res)=>{
+  try{//error handling
   const response=await fetch("https://jsonplaceholder.typicode.com/todos")
   const todos=await response.json()
   res.json(todos)
+  }catch(error){
+    res.status(503).json({
+      error:"API call failed",    //to give a try catch so that it should print err msg when inter fails
+    })
+  }
 });
-*/
+
 
 //the the last value is from 1to 200
 //for each we cant create seperate get ftn
 //dynamic saying of values after the /todos
 
+
+
 app.get("/todos/:id",async(req,res) => {
   const {id:Name}=req.params;
   res.json({Name})
+
 });
+
+
+//wildcard endpoint
+app.get("*",(req,res)=>{
+  res.json({});                                                                                       //({}->this returns as object)
+})
 
 app.listen(3000,() =>{
   console.log("Hello world")
