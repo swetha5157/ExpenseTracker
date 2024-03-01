@@ -43,6 +43,18 @@ app.get("/hi", (req, res) => {
   res.json(req.query);
 });
 
+/* using promise
+app.get("/todos",(req,res)=>{
+  const todos=fetch("https://jsonplaceholder.typicode.com/todos")
+  .then((response)=>response.json())
+  .then((json)=>res.json(json));
+});*/
+
+app.get("/todos",async(req,res)=>{
+  const response=await fetch("https://jsonplaceholder.typicode.com/todos")
+  const todos=await response.json()
+  res.json(todos)
+});
 
 app.listen(3000,() =>{
   console.log("Hello world")
