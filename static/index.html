@@ -9,7 +9,7 @@
 <body>
     <div class="main">
     <h1>Expense Tracker</h1>
-    <form id="exp" action="/hi">
+    <form id="exp" method="post" action="/hi">
         <label for="name">Name:</label>
         <input type="text"
 				id="name"
@@ -17,9 +17,9 @@
 				placeholder="Enter your Name" required><br><br>
 
         <label for="ta">Description:</label>
-        <textarea name="name" class="ta"  rows="4" cols="30" placeholder="Write here.."></textarea><br><br>
+        <textarea name="desc" class="ta"  rows="4" cols="30" placeholder="Write here.."></textarea><br><br>
         <label for="date">Date:</label>
-        <input type="date" id="date" name="name"><br><br>
+        <input type="date" id="date" name="date"><br><br>
         <label for="amt">Amount:</label>
         <input type="number" id="amt" placeholder="Enter the amount"><br><br>
         <div class="wrap">
