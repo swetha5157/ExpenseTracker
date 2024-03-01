@@ -32,7 +32,7 @@ app.use("/",static);
 //   // firstName:req.query.name,
 //     // ...req.query,            //... -> spread operator
 //     // desc:req.query.desc,
-//     // const {amount}:req.query,
+//     // const {amount}:req.query,//obj destructuring
 //     // date:req.query.date,
 //     // amount,
 //     // ph:req.query.ph,
@@ -50,10 +50,22 @@ app.get("/todos",(req,res)=>{
   .then((json)=>res.json(json));
 });*/
 
+//using async await
+/*
 app.get("/todos",async(req,res)=>{
   const response=await fetch("https://jsonplaceholder.typicode.com/todos")
   const todos=await response.json()
   res.json(todos)
+});
+*/
+
+//the the last value is from 1to 200
+//for each we cant create seperate get ftn
+//dynamic saying of values after the /todos
+
+app.get("/todos/:id",async(req,res) => {
+  const {id:Name}=req.params;
+  res.json({Name})
 });
 
 app.listen(3000,() =>{
