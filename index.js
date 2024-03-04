@@ -1,8 +1,11 @@
-const express = require('express')
 
-const bodyparser=require('body-parser')
-const app = express()
-app.use(bodyparser.json())
+
+
+const bodyparser=require('body-parser');
+const axios = require('axios');
+const express = require('express');
+const app = express();
+app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({extended:true}));
 
 const static = express.static('static');
@@ -38,10 +41,12 @@ app.use("/",static);
 //     // ph:req.query.ph,
 // })
 
+/*
 app.get("/hi", (req, res) => {
   console.log(req.query);
   res.json(req.query);
 });
+*/
 
 /* using promise
 app.get("/todos",(req,res)=>{
@@ -52,6 +57,7 @@ app.get("/todos",(req,res)=>{
 
 //using async await
 
+/*
 app.get("/todos",async(req,res)=>{
   try{//error handling
   const response=await fetch("https://jsonplaceholder.typicode.com/todos")
@@ -64,25 +70,45 @@ app.get("/todos",async(req,res)=>{
   }
 });
 
-
+*/
 //the the last value is from 1to 200
 //for each we cant create seperate get ftn
 //dynamic saying of values after the /todos
-
-
-
+/*
 app.get("/todos/:id",async(req,res) => {
   const {id:Name}=req.params;
   res.json({Name})
 
 });
+*/
+
+
+ // Get the entire value of data by typing the id in route parameter using axios library
+
+ app.get("/todos/:id", async (req, res) => {
+  try {
+    const { id } = req.params; // Extract id from route parameters
+
+    const response = await axios.get(`https://jsonplaceholder.typicode.com/todos/${id}`);
+    const todo = response.data;
+
+    res.json(todo); // Send the fetched todo as the response
+  } catch (error) {
+    console.error("Error in /todos/:id route:", error);
+    res.status(503).json({
+      error: "API call failed",
+    });
+  }
+});
+
 
 
 //wildcard endpoint
+/*
 app.get("*",(req,res)=>{
   res.json({});                                                                                       //({}->this returns as object)
 })
-
+*/
 app.listen(3000,() =>{
   console.log("Hello world")
 })
