@@ -46,7 +46,78 @@ app.post("/authors",(req,res)=>{
 
 });
   
+app.post("/authors/:id", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    // Find the author by id
+    const author = await Author.findById(id);
+
+    if (!author) {
+      return res.status(404).json({ error: "Author not found" });
+    }
+
+    // Update the name if provided in the request body
+    if (req.body.name) {
+      author.name = req.body.name;
+      author.email = req.body.email;
+    }
+
+    // Save the updated author to the database
+    await author.save();
+
+    res.json(author);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to update author" });
+  }
+});
+
+
+
+
   
+
+
+//get the values from db
+
+app.get("/authors",async(req,res)=>{
+  const authors=await Author.find({})
+  res.json(authors);
+})
+
+//as like of select a particular post from instagram
+app.get("/authors/:id",async(req,res)=>{
+  const{id}=req.params;
+  const author=await Author.findById(id)
+  res.json(author);
+})
+
+
+app.put("/authors/:id", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    // Find the author by id
+    const author = await Author.findById(id);
+
+    if (!author) {
+      return res.status(404).json({ error: "Author not found" });
+    }
+
+    // Update the name and email if provided in the request body
+    author.name = req.body.name ? req.body.name : author.name;
+    author.email = req.body.email ? req.body.email : author.email;
+
+    // Save the updated author to the database
+    await author.save();
+
+    res.json(author);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to update author" });
+  }
+});
 
 
 
