@@ -1,10 +1,9 @@
-
-
-
 const bodyparser=require('body-parser');
 const axios = require('axios');
 const express = require('express');
 const mongoose=require('mongoose');
+const Author=require("./models/author")//as Object //in json={author:Author}//local importing of package
+
 const app = express();
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({extended:true}));
@@ -12,27 +11,43 @@ mongoose
 .connect('mongodb://127.0.0.1:27017/blogs')
  .then(()=>console.log("db connected"))
  .catch(()=>console.log("error occured"));
-
-
- const Schema=mongoose.Schema;
- const Author=new Schema({//Author is a collection
-name:String,
-email:String,
- });
-
- //to make mongoose know that Author is a model
-
- const authorModel=mongoose.model('author',Author)
-
- console.log(authorModel.find({}).then(
+ console.log(Author.find({}).then(//
   (data)=>console.log(data)
  ));
 
+/* const author = new Author({
+  name:Math.random().toString(),
+  email:Math.random().toString(),
+})
+
+author.save().then(()=>console.log("Author Created")) //automatically saved
+*/
 const static = express.static('static');
 app.use("/",static);
+
 /*
 ?key=value
 **/
+
+
+app.post("/authors",(req,res)=>{
+  const {name,email}=req.body;
+  const author=new Author({
+    name,
+    email,
+  });
+
+  author.save()
+   .then((data)=>res.status(201).json(data))
+   .catch((error)=>res.json({
+    error:error.message
+  })
+  );
+
+});
+  
+  
+
 
 
 /*app.post("/hi",(req,res)=>{
@@ -104,7 +119,7 @@ app.get("/todos/:id",async(req,res) => {
 
 
  // Get the entire value of data by typing the id in route parameter using axios library
-
+/*
  app.get("/todos/:id", async (req, res) => {
   try {
     const { id } = req.params; // Extract id from route parameters
@@ -121,14 +136,13 @@ app.get("/todos/:id",async(req,res) => {
   }
 });
 
-
-
+*/
 //wildcard endpoint
 /*
 app.get("*",(req,res)=>{
   res.json({});                                                                                       //({}->this returns as object)
 })
 */
-app.listen(27017,() =>{
+app.listen(3000,() =>{
   console.log("Hello world")
 })
