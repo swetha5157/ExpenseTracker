@@ -4,9 +4,29 @@
 const bodyparser=require('body-parser');
 const axios = require('axios');
 const express = require('express');
+const mongoose=require('mongoose');
 const app = express();
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({extended:true}));
+mongoose
+.connect('mongodb://127.0.0.1:27017/blogs')
+ .then(()=>console.log("db connected"))
+ .catch(()=>console.log("error occured"));
+
+
+ const Schema=mongoose.Schema;
+ const Author=new Schema({//Author is a collection
+name:String,
+email:String,
+ });
+
+ //to make mongoose know that Author is a model
+
+ const authorModel=mongoose.model('author',Author)
+
+ console.log(authorModel.find({}).then(
+  (data)=>console.log(data)
+ ));
 
 const static = express.static('static');
 app.use("/",static);
@@ -109,6 +129,6 @@ app.get("*",(req,res)=>{
   res.json({});                                                                                       //({}->this returns as object)
 })
 */
-app.listen(3000,() =>{
+app.listen(27017,() =>{
   console.log("Hello world")
 })
